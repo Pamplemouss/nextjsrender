@@ -7,14 +7,15 @@ import LoadingButton from '@/components/LoadingButton';
    
   export default function Page() {
     const [fact, setFact] = useState(null)
-    const [isLoading, setLoading] = useState(true)
+    const [isLoading, setLoading] = useState(false)
     const [scope, animate] = useAnimate()
 
     useEffect(() => {
         getNewFact() // triggers twice in dev mode
     }, [])
-    console.log(process.env.NEXT_PUBLIC_FACT_API_URL)
+    
     function getNewFact() {
+        if (isLoading) return;
         setLoading(true)
         fetch(process.env.NEXT_PUBLIC_FACT_API_URL)
         .then((res) => {
