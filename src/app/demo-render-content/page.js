@@ -19,8 +19,11 @@ import LoadingButton from '@/components/LoadingButton';
         setLoading(true)
         fetch(process.env.NEXT_PUBLIC_FACT_API_URL)
         .then((res) => {
-            if (!res.ok) return {fact: "Error"}
+            if (!res.ok) return { fact: "Server Error" }
             else return res.json()
+        })
+        .catch((res) => {
+            return { fact: "Network Error" }
         })
         .then((data) => {
             setFact(data.fact)
